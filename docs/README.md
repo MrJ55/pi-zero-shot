@@ -1,6 +1,10 @@
 # Documentation
 
-- [plan.md](plan.md) — Detailed phased implementation plan and prioritized task list
-- [architecture.md](architecture.md) — Mapping of paper concepts onto Pi primitives
+| Doc | Description |
+|-----|-------------|
+| [00-problems-and-goals.md](00-problems-and-goals.md) | Problems & goals (pointer to README) |
+| [01-source-analysis.md](01-source-analysis.md) | GVS5H layout and v1/v2 differences |
+| [architecture.md](architecture.md) | Paper → Pi mapping |
 
-See also the Architecture Decision Records in [`../adr/`](../adr/).
+Implementation task lists live under [`../plan/`](../plan/).  
+Architecture decisions live under [`../adr/`](../adr/).

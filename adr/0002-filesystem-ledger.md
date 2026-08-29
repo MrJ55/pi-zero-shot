@@ -6,7 +6,7 @@ Proposed
 
 ## Context
 
-The paper’s gains are attributed in large part to the shared filesystem workspace that keeps each worker’s context short while preserving state across turns (plan, notes, solution, task list).
+The paper’s gains are attributed in large part to the shared filesystem workspace that keeps each worker’s context short while preserving state across turns.
 
 Pi already has sophisticated session trees, branching, and compaction.
 
@@ -18,7 +18,7 @@ Prefer a **real filesystem workspace** (content-hash or session-id keyed directo
 
 - Positive: closest match to measured paper behavior; easy to debug and to compare against GVS5H transcripts.
 - Positive: workers can be given a clean, bounded view of state.
-- Negative: must manage cleanup, isolation, and multi-user/multi-session safety.
+- Negative: must manage cleanup, isolation, and multi-session safety.
 - Negative: pure “everything-in-session” purity is sacrificed.
 
 ## Alternatives Considered
