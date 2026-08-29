@@ -4,25 +4,44 @@ Upstream method and measured results: **[slee-persis/GVS5H](https://github.com/s
 
 Reference implementation of the loop: [`multiagent.py` (v2)](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py).
 
+Optional spawn helper: **[nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents)** — see [ADR 0004](../adr/0004-subagents-as-spawn-helper.md).
+
 ## Paper Primitives → Pi Equivalents
 
 | Paper Concept | Pi Mapping | Notes |
 |---------------|------------|-------|
-| Shared filesystem workspace | `LedgerWorkspace` (real FS or Pi session-backed virtual FS) | Prefer real FS for fidelity + easy inspection (ADR 0002) |
-| Manager (primary) | Supervisor in extension/skill mode | Owns loop and task list |
-| Worker (fresh context) | Short-lived agent turn or isolated sub-call | Must not inherit long Pi session history |
-| `plan.md` / `notes.md` / `solution.py` | Files in ledger + optional Pi session artifacts | Hard size bounds required |
-| `transcript.jsonl` | Structured log + optional Pi session events | Capture reasoning / tokens / finish_reason |
-| Sample-test verifier | Tool or subprocess invoked by manager | Hard override on “done” |
-| Single model, zero-shot | Any model via `@earendil-works/pi-ai` | No training, no per-benchmark tuning |
-| Env-driven config | Extension config / skill options | Mirror key paper knobs (`MAX_ITERS`, etc.) |
+| Shared filesystem workspace | `LedgerWorkspace` (real FS preferred) | ADR 0002 |
+| Manager (primary) | **Deterministic** supervisor in pi-zero-shot (TS state machine) | Not an LLM “team coordinator” package |
+| Worker / role call (fresh context) | Fresh one-shot via **pi-subagents** (`context: "fresh"`) or direct `pi-ai` / RPC | Sequential, concurrency 1; ADR 0004 |
+| `plan.md` / `notes.md` / `solution.py` | Files in ledger; harness writes after parse | Hard size bounds; notes **rewrite** |
+| `transcript.jsonl` | Owned by pi-zero-shot (full role calls) | Do not rely on summary-only team packages |
+| Sample-test verifier | Subprocess in pi-zero-shot | Hard override on false “done” |
+| Single model, zero-shot | Same model id for every role via `pi-ai` | No specialized role models |
+| Env-driven config | Extension config / skill options | Mirror `MAX_ITERS`, caps, strict format |
+
+## Control plane vs spawn helper
+
+```text
+pi-zero-shot (this repo)
+  ├─ LedgerWorkspace, transcript, sample-test gate
+  ├─ Paper role prompts + parsers
+  ├─ Manager state machine (GVS5H v2 order)
+  └─ RoleLauncher
+        ├─ preferred: pi-subagents fresh sequential spawn
+        └─ fallback: pi-ai or pi --mode rpc one-shot
+```
+
+**In scope for pi-subagents:** process isolation, `context: "fresh"`, wait for child result, optional observability hooks.
+
+**Out of scope (do not use for replication):** builtin `worker`/`reviewer`/`scout` agents, council/parallel review loops, fork-default context, multi-worker teams, summary-only parent synthesis ([pi-agents-team](https://github.com/KristjanPikhof/Pi-Agents-Team) and similar).
 
 ## Recommended Extension Shape
 
 - **Name**: `pi-zero-shot` / ledger-orchestrator skill
 - **Activation**: slash command (`/ledger`, `/self-orchestrate`) or explicit mode
-- **Core loop**: sequential manager → one worker → sample tests → manager (paper style; GVS5H v2)
-- **Observability**: ledger files visible; full transcript retained
+- **Core loop**: sequential manager → one worker → sample tests → manager (GVS5H v2)
+- **Role children**: paper prompts; ledger injection only; minimal/no tools when possible
+- **Observability**: ledger files + full `transcript.jsonl`
 - **Baseline**: single-shot mode for fair comparison
 
 ## Control flow (v2 paper / GVS5H `multiagent_solve`)
@@ -30,18 +49,18 @@ Reference implementation of the loop: [`multiagent.py` (v2)](https://github.com/
 1. Manager writes `plan.md` + seed tasks  
 2. Ideation worker proposes approaches into `notes.md` (no code)  
 3. Loop: manager curates tasks + picks one next task → worker executes → sample tests → manager reviews  
-4. Stop on `done` (with non-empty artifact and passing samples when applicable) or max iters  
+4. Stop on `done` (non-empty artifact; samples pass when applicable) or max iters  
 5. Finalize worker if needed  
 
 ## Non-Goals (MVP)
 
 - Changing Pi core agent loop  
 - Training or learned orchestrators  
-- Full multi-agent debate / MoA  
-- Replacing Pi’s Read/Write/Edit/Bash tools  
+- Full multi-agent debate / MoA / parallel specialist teams as the measured path  
+- Replacing Pi’s default tools for ordinary interactive use  
 
-## Open Questions
+## Resolved design choices
 
-1. Real filesystem vs pure session-tree virtual ledger? → see ADR 0002  
-2. Workers as pure prompt calls vs full Pi sub-agents?  
-3. How much to integrate with existing community multi-agent packages?  
+1. **Ledger:** prefer real filesystem (ADR 0002; finalize status in Phase 0).  
+2. **Workers:** fresh role calls (generation-shaped), not package default coding subagents (ADR 0004).  
+3. **Community packages:** pi-subagents optional spawn helper only; pi-agents-team not on the replication path.  

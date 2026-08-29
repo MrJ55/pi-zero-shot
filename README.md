@@ -37,7 +37,7 @@ Target repo: `https://github.com/MrJ55/pi-zero-shot`
 
 - Changing Pi core agent loop  
 - Learned / trained orchestrators  
-- Full multi-agent debate or Mixture-of-Agents  
+- Full multi-agent debate or Mixture-of-Agents as the measured path  
 - Claiming exact paper numbers without re-running under controlled conditions  
 
 ## Architecture (one picture)
@@ -64,11 +64,11 @@ Finalize (if needed) ──► graded artifact + transcript.jsonl
 ```
 
 - **Ledger** = shared filesystem workspace (content-hash / session keyed)  
-- **Manager** = owns task list and stop decision  
-- **Worker** = one short-context execution per round  
+- **Manager** = owns task list and stop decision (pi-zero-shot state machine)  
+- **Worker** = one short-context role call per round (optional [pi-subagents](https://github.com/nicobailon/pi-subagents) spawn with `context: "fresh"`)  
 - **Pi** = harness, providers, TUI, extension host  
 
-Control flow matches [GVS5H `multiagent.py` (v2)](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py).
+Control flow matches [GVS5H `multiagent.py` (v2)](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py). Spawn policy: [ADR 0004](./adr/0004-subagents-as-spawn-helper.md).
 
 ## Repository layout
 
@@ -87,10 +87,10 @@ pi-zero-shot/
 
 | Phase | Name | Outcome |
 |-------|------|---------|
-| 0 | Discovery & mapping | Paper ↔ Pi primitives mapped; persistence decision recorded |
+| 0 | Discovery & mapping | Paper ↔ Pi primitives mapped; spawn-helper policy locked (ADR 0004) |
 | 1 | Core ledger primitives | `LedgerWorkspace`, transcript, sample-test runner |
 | 2 | Role prompts & parsing | Ported prompts + robust section parsers |
-| 3 | Manager–worker loop | Sequential scaffold as Pi extension/skill |
+| 3 | Manager–worker loop | Sequential scaffold; optional pi-subagents launcher |
 | 4 | Observability & packaging | TUI visibility, cost metrics, installable package |
 | 5 | Hardening | Provider quirks, format drift, optional parallelism |
 
@@ -101,6 +101,7 @@ Detailed task lists: **[plan/](./plan/)**.
 - [ADR 0001](./adr/0001-use-extension-not-core-fork.md) — Extension / skill, not core fork  
 - [ADR 0002](./adr/0002-filesystem-ledger.md) — Prefer real filesystem ledger  
 - [ADR 0003](./adr/0003-sequential-manager-worker.md) — Sequential manager + single worker for MVP  
+- [ADR 0004](./adr/0004-subagents-as-spawn-helper.md) — [pi-subagents](https://github.com/nicobailon/pi-subagents) as spawn helper only  
 
 ## Upstream references
 
@@ -109,6 +110,9 @@ Detailed task lists: **[plan/](./plan/)**.
 | **[slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)** | Paper TeX/PDF, v1/v2 scaffolds, full `runs/` transcripts |
 | [arXiv:2608.26480](https://arxiv.org/abs/2608.26480) | Published paper |
 | [earendil-works/pi](https://github.com/earendil-works/pi) | Agent harness, extensions, `pi-ai` |
+| **[nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents)** | Optional fresh-context sequential spawn helper (ADR 0004) |
+
+See also [`docs/02-ecosystem-shortcuts.md`](./docs/02-ecosystem-shortcuts.md).
 
 ## Status
 
