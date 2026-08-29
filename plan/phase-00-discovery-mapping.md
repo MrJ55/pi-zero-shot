@@ -8,10 +8,11 @@
 
 ## Background
 
-- `docs/architecture.md`
-- `adr/0001-use-extension-not-core-fork.md`
-- `adr/0002-filesystem-ledger.md`
-- GVS5H: `codebase/v2-current/escalation/multiagent.py`, `orchestrator.py`
+- [`docs/architecture.md`](../docs/architecture.md)
+- [`adr/0001-use-extension-not-core-fork.md`](../adr/0001-use-extension-not-core-fork.md)
+- [`adr/0002-filesystem-ledger.md`](../adr/0002-filesystem-ledger.md)
+- Upstream: **[slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)** — especially [`multiagent.py`](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py), [`orchestrator.py`](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/orchestrator.py)
+- Paper extract: [`raw/PAPER.md`](../raw/PAPER.md)
 - Pi: `@earendil-works/pi-agent-core`, extension docs, existing multi-agent community packages
 
 ## Tasks

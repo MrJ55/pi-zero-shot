@@ -1,5 +1,9 @@
 # Architecture Mapping: GVS5H → Pi
 
+Upstream method and measured results: **[slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)** · [arXiv:2608.26480](https://arxiv.org/abs/2608.26480) · extract in [`../raw/PAPER.md`](../raw/PAPER.md).
+
+Reference implementation of the loop: [`multiagent.py` (v2)](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py).
+
 ## Paper Primitives → Pi Equivalents
 
 | Paper Concept | Pi Mapping | Notes |
@@ -17,11 +21,11 @@
 
 - **Name**: `pi-zero-shot` / ledger-orchestrator skill
 - **Activation**: slash command (`/ledger`, `/self-orchestrate`) or explicit mode
-- **Core loop**: sequential manager → one worker → sample tests → manager (paper style)
+- **Core loop**: sequential manager → one worker → sample tests → manager (paper style; GVS5H v2)
 - **Observability**: ledger files visible; full transcript retained
 - **Baseline**: single-shot mode for fair comparison
 
-## Control flow (v2 paper)
+## Control flow (v2 paper / GVS5H `multiagent_solve`)
 
 1. Manager writes `plan.md` + seed tasks  
 2. Ideation worker proposes approaches into `notes.md` (no code)  

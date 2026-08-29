@@ -6,9 +6,9 @@ Ship a working sequential zero-shot scaffold as a Pi extension or skill.
 
 ## Background
 
-- `adr/0001-use-extension-not-core-fork.md`
-- `adr/0003-sequential-manager-worker.md`
-- GVS5H `multiagent_solve` control flow.
+- [`adr/0001-use-extension-not-core-fork.md`](../adr/0001-use-extension-not-core-fork.md)
+- [`adr/0003-sequential-manager-worker.md`](../adr/0003-sequential-manager-worker.md)
+- GVS5H [`multiagent_solve`](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py) control flow.
 - Pi extension entry points / skill registration.
 
 ## Tasks
@@ -32,4 +32,4 @@ Ship a working sequential zero-shot scaffold as a Pi extension or skill.
 ## Verification
 
 - End-to-end on 1–3 synthetic or LiveCodeBench-style problems.
-- Inspect transcript roles order matches paper (primary_plan, ideation, primary_manage, worker, …).
+- Inspect transcript roles order matches paper / GVS5H (primary_plan, ideation, primary_manage, worker, …).

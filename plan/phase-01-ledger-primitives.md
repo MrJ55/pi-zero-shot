@@ -6,9 +6,9 @@ Implement the shared workspace and supporting utilities that every later phase d
 
 ## Background
 
-- GVS5H `multiagent.py` workspace helpers (`_read`, `_write`, `_append`, size caps, notes rewrite).
-- `adr/0002-filesystem-ledger.md`
-- Paper §3.1 (shared filesystem workspace).
+- [GVS5H `multiagent.py`](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py) workspace helpers (`_read`, `_write`, `_append`, size caps, notes rewrite).
+- [`adr/0002-filesystem-ledger.md`](../adr/0002-filesystem-ledger.md)
+- Paper §3.1 (shared filesystem workspace) — see [`raw/PAPER.md`](../raw/PAPER.md) and [arXiv HTML](https://arxiv.org/html/2608.26480v1).
 
 ## Tasks
 
@@ -31,3 +31,4 @@ Implement the shared workspace and supporting utilities that every later phase d
 
 - Unit tests green.
 - Manual: create workspace from a sample LiveCodeBench-style problem statement and inspect files on disk.
+- Optional: compare file roles to a GVS5H workspace under [`runs/`](https://github.com/slee-persis/GVS5H/tree/master/runs).

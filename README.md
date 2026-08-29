@@ -5,8 +5,9 @@
 Port of the manager–worker scaffold from:
 
 > **Zero-Shot Self-Orchestration with Ledger-Based Control for Improved LLM Coding Performance**  
-> arXiv:2608.26480  
-> Artifacts: [slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)
+> arXiv: [2608.26480](https://arxiv.org/abs/2608.26480)  
+> Official artifacts: **[slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)**  
+> Local paper extract: [`raw/PAPER.md`](./raw/PAPER.md)
 
 to Pi’s extensible architecture (extension / skill), preserving the training-free, zero-shot, shared-filesystem-ledger design.
 
@@ -25,7 +26,7 @@ Target repo: `https://github.com/MrJ55/pi-zero-shot`
 
 | Goal | Success signal |
 |------|----------------|
-| **G1** Faithful control flow | Sequential manager ↔ one worker, sample-test gate, finalize, same invariants as GVS5H v2 |
+| **G1** Faithful control flow | Sequential manager ↔ one worker, sample-test gate, finalize, same invariants as [GVS5H](https://github.com/slee-persis/GVS5H) v2 |
 | **G2** Short worker contexts | Workers see only ledger state (plan/notes/solution/task), not full Pi session history |
 | **G3** Inspectable ledger | `task.md`, `plan.md`, `notes.md`, `solution.py`, `tasks.json`, `transcript.jsonl` produced and visible |
 | **G4** Extension, not core fork | Ships as Pi extension/skill; classic Pi remains available |
@@ -65,7 +66,9 @@ Finalize (if needed) ──► graded artifact + transcript.jsonl
 - **Ledger** = shared filesystem workspace (content-hash / session keyed)  
 - **Manager** = owns task list and stop decision  
 - **Worker** = one short-context execution per round  
-- **Pi** = harness, providers, TUI, extension host
+- **Pi** = harness, providers, TUI, extension host  
+
+Control flow matches [GVS5H `multiagent.py` (v2)](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py).
 
 ## Repository layout
 
@@ -75,6 +78,7 @@ pi-zero-shot/
 ├── docs/                     ← background & architecture
 ├── adr/                      ← architecture decision records
 ├── plan/                     ← phased implementation (task lists for implementers)
+├── raw/                      ← paper extract + links to GVS5H / arXiv
 ├── src/                      ← extension code (to be built)
 └── scripts/                  ← helpers / launchers
 ```
@@ -102,9 +106,9 @@ Detailed task lists: **[plan/](./plan/)**.
 
 | Project | Role |
 |---------|------|
+| **[slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)** | Paper TeX/PDF, v1/v2 scaffolds, full `runs/` transcripts |
+| [arXiv:2608.26480](https://arxiv.org/abs/2608.26480) | Published paper |
 | [earendil-works/pi](https://github.com/earendil-works/pi) | Agent harness, extensions, `pi-ai` |
-| [slee-persis/GVS5H](https://github.com/slee-persis/GVS5H) | Paper artifacts, v1/v2 scaffolds, runs |
-| arXiv:2608.26480 | Research results and method |
 
 ## Status
 
@@ -112,4 +116,4 @@ Planning complete in-repo. Implementation follows `plan/phase-*.md` in order.
 
 ## License
 
-TBD (recommended: MIT, consistent with Pi and the paper’s CC-BY where compatible).
+TBD (recommended: MIT for this port’s code, consistent with Pi where compatible). Paper content remains under the authors’ arXiv license (CC BY 4.0); see [GVS5H](https://github.com/slee-persis/GVS5H) and arXiv.

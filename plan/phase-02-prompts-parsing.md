@@ -6,8 +6,9 @@ Port the paper’s role prompts and make their structured outputs reliably parse
 
 ## Background
 
-- GVS5H `multiagent.py`: `_primary_plan`, `_ideation_worker`, `_primary_manage`, `_worker`, `_summarize_cutoff`, `_sections`, `_parse_tasks`, `_extract_py`.
+- [GVS5H `multiagent.py`](https://github.com/slee-persis/GVS5H/blob/master/codebase/v2-current/escalation/multiagent.py): `_primary_plan`, `_ideation_worker`, `_primary_manage`, `_worker`, `_summarize_cutoff`, `_sections`, `_parse_tasks`, `_extract_py`.
 - Paper’s mandatory section headers and strict-format mode for some models.
+- Real transcripts for fixtures: [GVS5H `runs/`](https://github.com/slee-persis/GVS5H/tree/master/runs).
 
 ## Tasks
 
