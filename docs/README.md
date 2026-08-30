@@ -9,7 +9,9 @@
 
 Upstream paper extract and links: [`../raw/`](../raw/).  
 Implementation task lists: [`../plan/`](../plan/).  
-Architecture decisions: [`../adr/`](../adr/).
+Architecture decisions: [`../adr/`](../adr/).  
+**Smoke test (manager tools + pure workers):** [`../experiments/smoke-test/`](../experiments/smoke-test/).
 
 **Primary source repo:** [slee-persis/GVS5H](https://github.com/slee-persis/GVS5H)  
-**Optional spawn helper:** [nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents) ([ADR 0004](../adr/0004-subagents-as-spawn-helper.md))
+**Optional spawn helper:** [nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents) ([ADR 0004](../adr/0004-subagents-as-spawn-helper.md))  
+**Product worker shape:** [ADR 0005](../adr/0005-manager-tools-pure-workers.md)
