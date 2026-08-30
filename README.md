@@ -19,6 +19,8 @@ Inspired by:
 
 Quick experiment: **[experiments/smoke-test/](./experiments/smoke-test/)**.
 
+**Sibling (not this repo):** [grok-zero-anneal](https://github.com/MrJ55/grok-zero-anneal) — Grok-as-manager + OpenRouter pure workers + Python sequencer (separate control plane).
+
 Target repo: `https://github.com/MrJ55/pi-zero-shot`
 
 ---
@@ -110,6 +112,7 @@ Detailed task lists: **[plan/](./plan/)**.
 | [arXiv:2608.26480](https://arxiv.org/abs/2608.26480) | Published paper |
 | [earendil-works/pi](https://github.com/earendil-works/pi) | Agent harness, extensions, `pi-ai` |
 | **[nicobailon/pi-subagents](https://github.com/nicobailon/pi-subagents)** | Fresh-context sequential spawn; `noTools` |
+| **[grok-zero-anneal](https://github.com/MrJ55/grok-zero-anneal)** | Sibling: Grok manager + OpenRouter workers |
 
 ## Status
 
